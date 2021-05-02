@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hypebeast/go-osc/osc"
+	"github.com/gpayer/go-osc/osc"
 )
 
 // TODO: Revise the client!

@@ -1,3 +1,3 @@
-module github.com/hypebeast/go-osc
+module github.com/gpayer/go-osc
 
-go 1.16
+go 1.15
