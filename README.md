@@ -1,7 +1,9 @@
 # GoOSC
 
-[![Build Status](https://travis-ci.org/hypebeast/go-osc.png?branch=master)](https://travis-ci.org/hypebeast/go-osc) [![GoDoc](https://godoc.org/github.com/hypebeast/go-osc/osc?status.svg)](https://godoc.org/github.com/hypebeast/go-osc/osc) [![Coverage Status](https://coveralls.io/repos/github/hypebeast/go-osc/badge.svg?branch=master)](https://coveralls.io/github/hypebeast/go-osc?branch=master)
-[![Go Report Card](https://goreportcard.com/badge/github.com/hypebeast/go-osc)](https://goreportcard.com/report/github.com/hypebeast/go-osc)
+**This is a fork from [github.com/hypebeast/go-osc](https://github.com/hypebeast/go-osc) to make sure my PR is directly usable.**
+
+[![GoDoc](https://godoc.org/github.com/gpayer/go-osc/osc?status.svg)](https://godoc.org/github.com/gpayer/go-osc/osc) 
+[![Go Report Card](https://goreportcard.com/badge/github.com/gpayer/go-osc)](https://goreportcard.com/report/github.com/gpayer/go-osc)
 
 [Open Sound Control (OSC)](http://opensoundcontrol.org/introduction-osc) library for Golang. Implemented in pure Go.
 
@@ -27,7 +29,7 @@
 ## Install
 
 ```shell
-go get github.com/hypebeast/go-osc
+go get github.com/gpayer/go-osc
 ```
 
 ## Usage
@@ -37,7 +39,7 @@ go get github.com/hypebeast/go-osc
 ```go
 package main
 
-import "github.com/hypebeast/go-osc/osc"
+import "github.com/gpayer/go-osc/osc"
 
 func main() {
     client := osc.NewClient("localhost", 8765)
@@ -55,7 +57,7 @@ func main() {
 ```go
 package main
 
-import "github.com/hypebeast/go-osc/osc"
+import "github.com/gpayer/go-osc/osc"
 
 func main() {
     finished := make(chan struct{})
@@ -83,7 +85,7 @@ func main() {
 ```go
 package main
 
-import "github.com/hypebeast/go-osc/osc"
+import "github.com/gpayer/go-osc/osc"
 
 func main() {
     var server *osc.Server
