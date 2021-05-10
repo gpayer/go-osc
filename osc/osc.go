@@ -546,6 +546,13 @@ func (c *Client) SetLocalAddr(ip string, port int) error {
 	return nil
 }
 
+// Connected returns the client connected state
+func (c *Client) Connected() bool {
+	c.mtx.Lock()
+	defer c.mtx.Unlock()
+	return c.conn != nil
+}
+
 // Connect explicitly connects to the target address. Normally you don't have to call
 // this, as both Send and ListenAndServe establish the connection if necessary.
 func (c *Client) Connect() error {
@@ -558,6 +565,9 @@ func (c *Client) Connect() error {
 	if err != nil {
 		return err
 	}
+	if addr.IP.IsLoopback() { // Workaround: weird addresses like 127.0.1.1 don't work
+		addr.IP = net.ParseIP("127.0.0.1")
+	}
 	c.conn, err = net.DialUDP("udp", c.laddr, addr)
 	if err != nil {
 		return err
@@ -568,7 +578,7 @@ func (c *Client) Connect() error {
 
 // Close closes the current connection.
 func (c *Client) Close() {
-	if c.conn != nil {
+	if c.Connected() {
 		c.conn.Close()
 		c.conn = nil
 	}
@@ -576,7 +586,7 @@ func (c *Client) Close() {
 
 // Send sends an OSC Bundle or an OSC Message. If no connection exists, one will be established.
 func (c *Client) Send(packet Packet) error {
-	if c.conn == nil {
+	if !c.Connected() {
 		err := c.Connect()
 		if err != nil {
 			return err
@@ -597,7 +607,7 @@ func (c *Client) Send(packet Packet) error {
 // was established by the client. You only need to call this if you expect responses from the server.
 // This function only returns when there is an error, so better put it into a go routine.
 func (c *Client) ListenAndServe() error {
-	if c.conn == nil {
+	if !c.Connected() {
 		err := c.Connect()
 		if err != nil {
 			return err
